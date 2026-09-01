@@ -3,14 +3,26 @@
   margin: 0 auto;
   padding: var(--spacing-xl, 2rem) var(--spacing-l, 1.5rem);
 
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m, 1rem);
+    margin-bottom: var(--spacing-xl, 2rem);
+  }
+
   &__title {
     font-size: clamp(1.5rem, 3vw, 2.2rem);
-    margin-bottom: var(--spacing-xl, 2rem);
+    font-weight: 700;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: var(--spacing-l, 1.5rem);
+  }
+
+  &__empty {
+    color: var(--color-text-muted, #aaa);
+    grid-column: 1 / -1;
   }
 }
