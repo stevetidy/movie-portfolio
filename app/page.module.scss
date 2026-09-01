@@ -1,0 +1,29 @@
+.movie-hub {
+  --hub-max-width: 1200px;
+  --hub-padding: 2rem 1rem;
+  
+  max-width: var(--hub-max-width);
+  margin: 0 auto;
+  padding: var(--hub-padding);
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+  }
+
+  &__subtitle {
+    color: var(--text-muted);
+  }
+}
+
+.movie-grid {
+  --grid-min-col: 180px;
+  --grid-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-col), 1fr));
+  gap: var(--grid-gap);
+}

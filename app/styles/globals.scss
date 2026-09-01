@@ -1,0 +1,48 @@
+:root {
+  --primary-color: #e50914;
+  --background-dark: #121212;
+  --surface-dark: #1e1e1e;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --border-radius: 8px;
+  --transition-speed: 0.2s ease;
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* 3. Set core body defaults */
+body {
+  background-color: var(--background-dark);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 4. Make media elements easier to work with */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 5. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 6. Remove list styles on ul, ol elements with a list role */
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

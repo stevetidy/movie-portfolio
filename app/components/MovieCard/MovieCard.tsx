@@ -1,0 +1,44 @@
+import styles from './MovieCard.module.scss';
+
+export interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  release_date?: string;
+}
+
+interface MovieCardProps {
+  movie: Movie;
+}
+
+export default function MovieCard({ movie }: MovieCardProps) {
+  const { title, poster_path, vote_average } = movie;
+
+  return (
+    <article className={styles['movie-card']}>
+      <div className={styles['movie-card__media']}>
+        {poster_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={title}
+            className={styles['movie-card__poster']}
+          />
+        ) : (
+          <div
+            className={`${styles['movie-card__poster']} ${styles['movie-card__poster--placeholder']}`}
+          >
+            No Image
+          </div>
+        )}
+      </div>
+
+      <div className={styles['movie-card__content']}>
+        <h2 className={styles['movie-card__title']}>{title}</h2>
+        <span className={styles['movie-card__rating']}>
+          ★ {vote_average.toFixed(1)}
+        </span>
+      </div>
+    </article>
+  );
+}
