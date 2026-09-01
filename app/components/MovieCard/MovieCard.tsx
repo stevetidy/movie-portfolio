@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './MovieCard.module.scss';
 
 export interface Movie {
@@ -19,9 +20,11 @@ export default function MovieCard({ movie }: MovieCardProps) {
     <article className={styles['movie-card']}>
       <div className={styles['movie-card__media']}>
         {poster_path ? (
-          <img
+          <Image
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
             alt={title}
+            fill
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 180px"
             className={styles['movie-card__poster']}
           />
         ) : (
