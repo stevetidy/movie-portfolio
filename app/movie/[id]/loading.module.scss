@@ -1,12 +1,12 @@
 .detail-skeleton {
-  max-width: var(--layout-max-width, 1100px);
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: var(--spacing-xl, 2rem) var(--spacing-m, 1rem);
+  padding: var(--spacing-xl) var(--spacing-m);
 
   &__hero {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl, 2rem);
+    gap: var(--spacing-xl);
 
     @media (min-width: 768px) {
       grid-template-columns: 300px 1fr;
@@ -15,38 +15,38 @@
 
   &__poster {
     aspect-ratio: 2 / 3;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-m, 8px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-m);
     animation: pulse 1.5s infinite ease-in-out;
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-m, 1rem);
+    gap: var(--spacing-m);
   }
 
   &__title {
     height: 40px;
     width: 60%;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-s, 4px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
     animation: pulse 1.5s infinite ease-in-out;
   }
 
   &__meta {
     height: 20px;
     width: 30%;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-s, 4px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
     animation: pulse 1.5s infinite ease-in-out;
   }
 
   &__line {
     height: 16px;
     width: 100%;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-s, 4px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
     animation: pulse 1.5s infinite ease-in-out;
 
     &--short {

@@ -1,21 +1,21 @@
 .home-skeleton {
   max-width: var(--layout-max-width, 1200px);
   margin: 0 auto;
-  padding: var(--spacing-xl, 2rem) var(--spacing-l, 1.5rem);
+  padding: var(--spacing-xl) var(--spacing-l);
 
   &__title {
     width: 200px;
     height: 32px;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-s, 4px);
-    margin-bottom: var(--spacing-xl, 2rem);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
+    margin-bottom: var(--spacing-xl);
     animation: pulse 1.5s infinite ease-in-out;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: var(--spacing-l, 1.5rem);
+    gap: var(--spacing-l);
   }
 
   &__card {
@@ -26,16 +26,16 @@
 
   &__poster {
     aspect-ratio: 2 / 3;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-m, 8px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-m);
     animation: pulse 1.5s infinite ease-in-out;
   }
 
   &__text {
     height: 16px;
     width: 80%;
-    background-color: var(--color-surface, #1e1e1e);
-    border-radius: var(--border-radius-s, 4px);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
     animation: pulse 1.5s infinite ease-in-out;
 
     &--short {

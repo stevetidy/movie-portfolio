@@ -1,15 +1,15 @@
 .header {
   width: 100%;
-  background-color: var(--color-surface, #141414);
-  border-bottom: 1px solid var(--color-border, #282828);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 1000;
 
   &__container {
-    max-width: var(--layout-max-width, 1200px);
+    max-width: var(--layout-max-width);
     margin: 0 auto;
-    padding: var(--spacing-m, 1rem) var(--spacing-l, 1.5rem);
+    padding: var(--spacing-m) var(--spacing-l);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,7 +19,7 @@
   &__logo {
     font-size: var(--font-size-xl, 1.5rem);
     font-weight: 800;
-    color: var(--color-primary, #e50914);
+    color: var(--color-primary);
     text-decoration: none;
     letter-spacing: -0.5px;
     white-space: nowrap;

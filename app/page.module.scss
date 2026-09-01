@@ -1,12 +1,12 @@
 .home {
-  max-width: var(--layout-max-width, 1200px);
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: var(--spacing-xl, 2rem) var(--spacing-l, 1.5rem);
+  padding: var(--spacing-xl, 2rem) var(--spacing-l);
 
   &__header {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-m, 1rem);
+    gap: var(--spacing-m);
     margin-bottom: var(--spacing-xl, 2rem);
   }
 
@@ -18,11 +18,11 @@
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: var(--spacing-l, 1.5rem);
+    gap: var(--spacing-l);
   }
 
   &__empty {
-    color: var(--color-text-muted, #aaa);
+    color: var(--color-text-muted);
     grid-column: 1 / -1;
   }
 }
