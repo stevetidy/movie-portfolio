@@ -1,48 +1,87 @@
+/* styles/globals.scss */
+@use 'functions' as *;
+
 :root {
-  --primary-color: #e50914;
-  --background-dark: #121212;
-  --surface-dark: #1e1e1e;
-  --text-main: #ffffff;
-  --text-muted: #a0a0a0;
+  /* Colors */
+  --color-bg: #121212;
+  --color-bg-alt: #1a1a1a;
+  --color-surface: #1e1e1e;
+  --color-surface-elevated: #282828;
+  --color-surface-hover: #333333;
+  --color-border: #282828;
+  --color-primary: #e50914;
+  --color-text: #ffffff;
+  --color-text-muted: #aaaaaa;
+
+  /* Color Aliases */
+  --primary-color: var(--color-primary);
+  --background-dark: var(--color-bg);
+  --surface-dark: var(--color-surface);
+  --text-main: var(--color-text);
+  --text-muted: var(--color-text-muted);
+
+  /* Spacing Scale (Pixel-Named Tokens) */
+  --spacing-2:  0.125rem; /* 2px */
+  --spacing-4:  0.25rem;  /* 4px */
+  --spacing-8:  0.5rem;   /* 8px */
+  --spacing-12: 0.75rem;  /* 12px */
+  --spacing-16: 1rem;     /* 16px */
+  --spacing-24: 1.5rem;   /* 24px */
+  --spacing-32: 2rem;     /* 32px */
+  --spacing-48: 3rem;     /* 48px */
+  --spacing-64: 4rem;     /* 64px */
+
+  /* Typography */
   --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 0.9rem;
+  --font-size-body: 1rem;
+  --font-size-xl: 1.5rem;
+
+  /* Layout & Utility */
+  --layout-max-width: 1200px;
+  --border-radius-s: 4px;
+  --border-radius-m: 8px;
   --border-radius: 8px;
   --transition-speed: 0.2s ease;
 }
 
-/* 1. Use a more-intuitive box-sizing model */
-*, *::before, *::after {
+/* --- Modern CSS Reset --- */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-}
-
-/* 2. Remove default margin */
-body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
   margin: 0;
+  padding: 0;
 }
 
-/* 3. Set core body defaults */
 body {
-  background-color: var(--background-dark);
-  color: var(--text-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-family);
   line-height: 1.5;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 4. Make media elements easier to work with */
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-/* 5. Inherit fonts for form controls */
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-/* 6. Remove list styles on ul, ol elements with a list role */
-ul, ol {
+ul,
+ol {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }

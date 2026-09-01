@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Header from './components/Header/Header';
-import './globals.scss';
+import './styles/globals.scss';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://movies.stevetidy.com'),

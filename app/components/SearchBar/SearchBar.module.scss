@@ -4,7 +4,7 @@
 
   &__input {
     width: 100%;
-    padding: var(--spacing-s) var(--spacing-m);
+    padding: var(--spacing-12) var(--spacing-16);
     border-radius: var(--border-radius-m);
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-alt);
@@ -33,8 +33,8 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-s);
-    padding: var(--spacing-xs) var(--spacing-s);
+    gap: var(--spacing-12);
+    padding: var(--spacing-8) var(--spacing-12);
     text-decoration: none;
     color: var(--color-text);
 
@@ -70,7 +70,7 @@
   }
 
   &__status {
-    padding: var(--spacing-m);
+    padding: var(--spacing-16);
     text-align: center;
     color: var(--color-text-muted);
     font-size: var(--font-size-sm);

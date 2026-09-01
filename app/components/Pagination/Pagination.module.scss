@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-m);
-  margin-top: var(--spacing-xl);
-  padding: var(--spacing-m) 0;
+  gap: var(--spacing-16);
+  margin-top: var(--spacing-32);
+  padding: var(--spacing-16) 0;
 
   &__button {
     background-color: var(--color-surface);

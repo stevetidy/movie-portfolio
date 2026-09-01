@@ -1,0 +1,10 @@
+// styles/_functions.scss
+@use 'sass:math';
+
+@function rem($pixels) {
+  @if math.is-unitless($pixels) {
+    @return math.div($pixels, 16) * 1rem;
+  } @else {
+    @return math.div(math.abs($pixels), 16px) * 1rem;
+  }
+}
