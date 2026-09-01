@@ -28,16 +28,12 @@ export default function SearchBar() {
     const timer = setTimeout(async () => {
       setIsLoading(true);
       try {
-        // Fetch through client side or a Next.js API route / client fetch
-        const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-        const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
-            query
-          )}`
-        );
+        // Fetch via your secure internal Next.js API Route Handler
+        const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+        
         if (res.ok) {
           const data = await res.json();
-          setResults(data.results.slice(0, 5)); // Limit to top 5 results
+          setResults(data.results?.slice(0, 5) || []);
           setIsOpen(true);
         }
       } catch (error) {
@@ -45,7 +41,7 @@ export default function SearchBar() {
       } finally {
         setIsLoading(false);
       }
-    }, 300); // 300ms debounce delay
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [query]);
