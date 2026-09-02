@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { fetchMovieDetails } from '@/lib/tmdb';
@@ -6,6 +7,32 @@ import styles from './page.module.scss';
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+
+  try {
+    const movie = await fetchMovieDetails(id);
+    const posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : undefined;
+
+    return {
+      title: movie.title,
+      description: movie.overview || 'Explore movie details on Movie Portfolio.',
+      openGraph: {
+        title: movie.title,
+        description: movie.overview,
+        images: posterUrl ? [{ url: posterUrl }] : [],
+      },
+    };
+  } catch {
+    return {
+      title: 'Movie Details',
+      description: 'View movie information and ratings.',
+    };
+  }
 }
 
 export default async function MovieDetailsPage({ params }: PageProps) {
@@ -38,7 +65,6 @@ export default async function MovieDetailsPage({ params }: PageProps) {
         )}
 
         <div className={styles['details__container']}>
-          {/* Frosted Glass Card Wrapper */}
           <div className={styles['details__card']}>
             <div className={styles['details__poster-wrapper']}>
               <img
