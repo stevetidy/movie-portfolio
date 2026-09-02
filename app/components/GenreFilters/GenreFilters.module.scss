@@ -1,24 +1,32 @@
-.genre-filters {
+@use '../../styles/functions' as *;
+
+.genres {
   display: flex;
-  gap: var(--spacing-xs, 0.5rem);
+  align-items: center;
+  gap: var(--spacing-8);
   overflow-x: auto;
-  padding: var(--spacing-xs, 0.5rem) 0;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
+  padding-bottom: var(--spacing-8);
+  width: 100%;
+
+  /* Hide scrollbar across browsers */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   &::-webkit-scrollbar {
-    display: none; /* Hide scrollbar Chrome/Safari */
+    display: none;
   }
 
-  &__pill {
-    background-color: var(--color-surface);
-    color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
-    padding: 0.35rem 0.85rem;
-    border-radius: 999px;
-    font-size: var(--font-size-xs);
+  &__chip {
     white-space: nowrap;
+    padding: var(--spacing-8) var(--spacing-16);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-m);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-family: inherit;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
 
     &:hover {
       background-color: var(--color-surface-hover);
@@ -27,8 +35,9 @@
 
     &--active {
       background-color: var(--color-primary);
-      color: #fff;
       border-color: var(--color-primary);
+      color: var(--color-text);
+      font-weight: 600;
 
       &:hover {
         background-color: var(--color-primary);

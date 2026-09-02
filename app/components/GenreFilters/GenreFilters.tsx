@@ -1,71 +1,70 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 import styles from './GenreFilters.module.scss';
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }
 
-export default function GenreFilters() {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const router = useRouter();
+interface GenreFiltersProps {
+  genres: Genre[];
+}
+
+export default function GenreFilters({ genres }: GenreFiltersProps) {
   const searchParams = useSearchParams();
-  const selectedGenre = searchParams.get('genre');
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const [, startTransition] = useTransition();
 
-  useEffect(() => {
-    async function fetchGenres() {
-      try {
-        const res = await fetch('/api/genres');
-        if (res.ok) {
-          const data = await res.json();
-          setGenres(data.genres || []);
-        }
-      } catch (err) {
-        console.error('Failed to load genres:', err);
-      }
-    }
-    fetchGenres();
-  }, []);
+  const selectedGenre = searchParams.get('genre') ?? '';
 
-  const handleSelectGenre = (genreId: number | null) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (genreId) {
-      params.set('genre', genreId.toString());
+  const handleSelectGenre = (genreId: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (genreId && genreId !== selectedGenre) {
+      params.set('genre', genreId);
     } else {
       params.delete('genre');
     }
-    router.push(`/?${params.toString()}`);
+
+    params.delete('page');
+
+    startTransition(() => {
+      replace(`${pathname}?${params.toString()}`);
+    });
   };
 
-  if (genres.length === 0) return null;
-
   return (
-    <div className={styles['genre-filters']}>
+    <div className={styles.genres}>
       <button
         type="button"
-        className={`${styles['genre-filters__pill']} ${
-          !selectedGenre ? styles['genre-filters__pill--active'] : ''
+        className={`${styles['genres__chip']} ${
+          !selectedGenre ? styles['genres__chip--active'] : ''
         }`}
-        onClick={() => handleSelectGenre(null)}
+        onClick={() => handleSelectGenre('')}
       >
         All
       </button>
+      {genres?.map((genre) => {
+        const idStr = genre.id.toString();
+        const isActive = selectedGenre === idStr;
 
-      {genres.map((genre) => (
-        <button
-          key={genre.id}
-          type="button"
-          className={`${styles['genre-filters__pill']} ${
-            selectedGenre === genre.id.toString() ? styles['genre-filters__pill--active'] : ''
-          }`}
-          onClick={() => handleSelectGenre(genre.id)}
-        >
-          {genre.name}
-        </button>
-      ))}
+        return (
+          <button
+            key={genre.id}
+            type="button"
+            className={`${styles['genres__chip']} ${
+              isActive ? styles['genres__chip--active'] : ''
+            }`}
+            onClick={() => handleSelectGenre(idStr)}
+          >
+            {genre.name}
+          </button>
+        );
+      })}
     </div>
   );
 }
