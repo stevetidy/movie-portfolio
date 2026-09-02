@@ -1,0 +1,43 @@
+@use '../../styles/functions' as *;
+
+.watchlist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-20);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed);
+  width: fit-content;
+
+  &:hover {
+    background-color: var(--color-surface-hover);
+    transform: translateY(-1px);
+  }
+
+  &__icon {
+    width: rem(18);
+    height: rem(18);
+    color: var(--color-primary);
+  }
+
+  &--active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text);
+
+    .watchlist-btn__icon {
+      color: var(--color-text);
+    }
+
+    &:hover {
+      background-color: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+    }
+  }
+}

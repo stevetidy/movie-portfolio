@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { fetchMovieDetails } from '@/lib/tmdb';
+import WatchlistButton from '@/app/components/WatchlistButton/WatchlistButton';
 import styles from './page.module.scss';
 
 interface PageProps {
@@ -56,6 +57,8 @@ export default async function MovieDetailsPage({ params }: PageProps) {
               <span>{movie.runtime} min</span>
               <span>{movie.release_date?.split('-')[0]}</span>
             </div>
+
+            <WatchlistButton movie={movie} />
 
             <div className={styles['details__genres']}>
               {movie.genres.map((genre) => (
