@@ -1,50 +1,56 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import styles from './MovieCard.module.scss';
+'use client';
 
-export interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
+import { Movie } from '@/types/movie';
+import { useWatchlist } from '@/context/WatchlistContext';
+import styles from './MovieCard.module.scss';
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const { id, title, poster_path, vote_average } = movie;
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
+  const saved = isInWatchlist(movie.id);
+
+  // Fallbacks for TMDB snake_case payload properties
+  const posterPath = movie.posterPath || movie.poster_path;
+  const releaseDate = movie.releaseDate || movie.release_date;
+  const voteAverage = movie.voteAverage ?? movie.vote_average;
+
+  const posterUrl = posterPath
+    ? `https://image.tmdb.org/t/p/w500${posterPath}`
+    : '/placeholder-poster.png';
 
   return (
-    <Link href={`/movie/${id}`} className={styles['movie-card__link']}>
-      <article className={styles['movie-card']}>
-        <div className={styles['movie-card__media']}>
-          {poster_path ? (
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-              alt={title}
-              fill
-              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 180px"
-              className={styles['movie-card__poster']}
-            />
-          ) : (
-            <div
-              className={`${styles['movie-card__poster']} ${styles['movie-card__poster--placeholder']}`}
-            >
-              No Image
-            </div>
+    <article className={styles.card}>
+      <div className={styles['card__poster-wrapper']}>
+        <img
+          src={posterUrl}
+          alt={movie.title}
+          className={styles['card__poster']}
+          loading="lazy"
+        />
+        <button
+          type="button"
+          onClick={() => toggleWatchlist(movie)}
+          className={`${styles['card__bookmark']} ${
+            saved ? styles['card__bookmark--active'] : ''
+          }`}
+          aria-label={saved ? `Remove ${movie.title} from watchlist` : `Add ${movie.title} to watchlist`}
+        >
+          {saved ? '♥' : '♡'}
+        </button>
+      </div>
+
+      <div className={styles['card__content']}>
+        <h3 className={styles['card__title']}>{movie.title}</h3>
+        <div className={styles['card__meta']}>
+          {releaseDate && <span>{releaseDate.split('-')[0]}</span>}
+          {voteAverage !== undefined && (
+            <span>⭐ {voteAverage.toFixed(1)}</span>
           )}
         </div>
-
-        <div className={styles['movie-card__content']}>
-          <h2 className={styles['movie-card__title']}>{title}</h2>
-          <span className={styles['movie-card__rating']}>
-            ★ {vote_average.toFixed(1)}
-          </span>
-        </div>
-      </article>
-    </Link>
+      </div>
+    </article>
   );
 }
