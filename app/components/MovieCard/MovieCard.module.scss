@@ -1,78 +1,87 @@
-// app/components/MovieCard/MovieCard.module.scss
+@use '../../styles/functions' as *;
 
-.movie-card {
-  --card-bg: var(--surface-dark);
-  --card-radius: var(--border-radius);
-  --card-hover-transform: translateY(-4px);
-  --rating-color: #ffc107;
-
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  transition: transform var(--transition-speed);
-  height: 100%;
+.card {
+  position: relative;
   display: flex;
   flex-direction: column;
+  border-radius: rem(12);
+  overflow: hidden;
+  background-color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-  &__link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-
-    &:hover .movie-card {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-  }
-
   &:hover {
-    transform: var(--card-hover-transform);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
   }
 
-  // Element: movie-card__media
-  &__media {
-    width: 100%;
-    aspect-ratio: 2 / 3;
+  &__poster-wrapper {
     position: relative;
-    background-color: #2a2a2a;
+    aspect-ratio: 2 / 3;
+    width: 100%;
+    background-color: #0f172a;
+    overflow: hidden;
   }
 
-  // Element: movie-card__poster
   &__poster {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
 
-    // Modifier: movie-card__poster--placeholder
-    &--placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.875rem;
+  &__bookmark {
+    position: absolute;
+    top: rem(12);
+    right: rem(12);
+    width: rem(36);
+    height: rem(36);
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: rem(16);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: rgba(15, 23, 42, 0.95);
+    }
+
+    &--active {
+      color: #e11d48;
+      background-color: #ffffff;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
     }
   }
 
-  // Element: movie-card__content
   &__content {
-    padding: 0.75rem;
+    padding: rem(16);
+    display: flex;
+    flex-direction: column;
+    gap: rem(8);
   }
 
-  // Element: movie-card__title
   &__title {
-    font-size: 0.95rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: rem(16);
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0;
+    line-height: 1.3;
   }
 
-  // Element: movie-card__rating
-  &__rating {
-    display: inline-block;
-    margin-top: 0.25rem;
-    color: var(--rating-color);
-    font-size: 0.85rem;
-    font-weight: bold;
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: rem(13);
+    color: #94a3b8;
   }
 }

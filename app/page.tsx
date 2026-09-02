@@ -1,4 +1,5 @@
-import MovieCard, { Movie } from './components/MovieCard/MovieCard';
+import { Movie } from '@/types/movie';
+import MovieCard from './components/MovieCard/MovieCard';
 import GenreFilters from './components/GenreFilters/GenreFilters';
 import Pagination from './components/Pagination/Pagination';
 import styles from './page.module.scss';
