@@ -10,6 +10,17 @@ interface TMDBPaginatedResponse<T> {
   total_results: number;
 }
 
+export interface MovieDetails extends Movie {
+  overview: string;
+  backdrop_path: string | null;
+  runtime: number;
+  genres: Genre[];
+  tagline: string;
+  status: string;
+  budget: number;
+  revenue: number;
+}
+
 async function tmdbFetch<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
   const apiKey = process.env.TMDB_API_KEY;
   if (!apiKey) {
@@ -56,12 +67,14 @@ export async function fetchMovies(
   }
 
   const data = await tmdbFetch<TMDBPaginatedResponse<Movie>>(endpoint, params);
-
-  // TMDB caps pagination at 500 pages max
   const totalPages = Math.min(data.total_pages || 1, 500);
 
   return {
     movies: data.results,
     totalPages,
   };
+}
+
+export async function fetchMovieDetails(id: string): Promise<MovieDetails> {
+  return tmdbFetch<MovieDetails>(`/movie/${id}`);
 }

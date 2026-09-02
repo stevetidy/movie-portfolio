@@ -1,114 +1,76 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { fetchMovieDetails } from '@/lib/tmdb';
 import styles from './page.module.scss';
-
-interface MovieDetail {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  release_date: string;
-  vote_average: number;
-  tagline: string;
-}
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-// 1. Fetcher helper function
-async function getMovie(id: string): Promise<MovieDetail | null> {
-  const apiKey = process.env.TMDB_API_KEY;
-  const baseUrl = process.env.TMDB_BASE_URL || 'https://api.themoviedb.org/3';
-
-  const res = await fetch(`${baseUrl}/movie/${id}?api_key=${apiKey}`, {
-    next: { revalidate: 3600 },
-  });
-
-  if (!res.ok) return null;
-  return res.json();
-}
-
-// 2. Dynamic Metadata Generator
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export default async function MovieDetailsPage({ params }: PageProps) {
   const { id } = await params;
-  const movie = await getMovie(id);
 
-  if (!movie) {
-    return {
-      title: 'Movie Not Found',
-    };
-  }
+  try {
+    const movie = await fetchMovieDetails(id);
 
-  const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w1280${movie.poster_path}`
-    : '/fallback-og.jpg';
+    const backdropUrl = movie.backdrop_path
+      ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
+      : null;
 
-  return {
-    title: `${movie.title} (${movie.release_date?.slice(0, 4) || 'N/A'}) - MovieApp`,
-    description: movie.overview || movie.tagline || 'Explore movie details on MovieApp.',
-    openGraph: {
-      title: movie.title,
-      description: movie.overview,
-      type: 'video.movie',
-      images: [
-        {
-          url: posterUrl,
-          width: 1280,
-          height: 720,
-          alt: `${movie.title} Poster`,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: movie.title,
-      description: movie.overview,
-      images: [posterUrl],
-    },
-  };
-}
+    const posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : '/placeholder-poster.png';
 
-// 3. Main Page Component
-export default async function MovieDetailPage({ params }: PageProps) {
-  const { id } = await params;
-  const movie = await getMovie(id);
-
-  if (!movie) {
-    notFound();
-  }
-
-  return (
-    <main className={styles['movie-detail']}>
-      <div className={styles['movie-detail__hero']}>
-        <div className={styles['movie-detail__media']}>
-          {movie.poster_path ? (
+    return (
+      <article className={styles.details}>
+        {backdropUrl && (
+          <div className={styles['details__backdrop-wrapper']}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={backdropUrl}
               alt={movie.title}
               fill
               priority
-              className={styles['movie-detail__poster']}
+              className={styles['details__backdrop']}
             />
-          ) : (
-            <div className={styles['movie-detail__placeholder']}>No Image</div>
-          )}
-        </div>
-
-        <div className={styles['movie-detail__content']}>
-          <h1 className={styles['movie-detail__title']}>{movie.title}</h1>
-          {movie.tagline && (
-            <p className={styles['movie-detail__tagline']}>"{movie.tagline}"</p>
-          )}
-          <div className={styles['movie-detail__meta']}>
-            <span>{movie.release_date?.slice(0, 4)}</span>
-            <span>★ {movie.vote_average.toFixed(1)}</span>
+            <div className={styles['details__overlay']} />
           </div>
-          <p className={styles['movie-detail__overview']}>{movie.overview}</p>
+        )}
+
+        <div className={styles['details__container']}>
+          <div className={styles['details__poster-wrapper']}>
+            <img
+              src={posterUrl}
+              alt={movie.title}
+              className={styles['details__poster']}
+            />
+          </div>
+
+          <div className={styles['details__content']}>
+            <h1 className={styles['details__title']}>{movie.title}</h1>
+            {movie.tagline && (
+              <p className={styles['details__tagline']}>"{movie.tagline}"</p>
+            )}
+
+            <div className={styles['details__meta']}>
+              <span>⭐ {(movie.vote_average ?? 0).toFixed(1)}</span>
+              <span>{movie.runtime} min</span>
+              <span>{movie.release_date?.split('-')[0]}</span>
+            </div>
+
+            <div className={styles['details__genres']}>
+              {movie.genres.map((genre) => (
+                <span key={genre.id} className={styles['details__genre-tag']}>
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+
+            <p className={styles['details__overview']}>{movie.overview}</p>
+          </div>
         </div>
-      </div>
-    </main>
-  );
+      </article>
+    );
+  } catch {
+    notFound();
+  }
 }

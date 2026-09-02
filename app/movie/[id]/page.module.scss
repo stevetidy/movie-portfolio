@@ -1,63 +1,92 @@
-.movie-detail {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+@use '../../styles/functions' as *;
 
-  &__hero {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+.details {
+  position: relative;
+  min-height: calc(100vh - rem(80));
 
-    @media (min-width: 768px) {
-      grid-template-columns: 300px 1fr;
-    }
+  &__backdrop-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: rem(400);
+    z-index: 0;
   }
 
-  &__media {
-    position: relative;
-    aspect-ratio: 2 / 3;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #1e1e1e;
-  }
-
-  &__poster {
+  &__backdrop {
     object-fit: cover;
   }
 
-  &__placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #888;
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.4) 0%,
+      var(--color-bg) 100%
+    );
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: rem(200) var(--spacing-24) var(--spacing-48);
+    display: grid;
+    grid-template-columns: rem(280) 1fr;
+    gap: var(--spacing-32);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      padding-top: var(--spacing-32);
+    }
+  }
+
+  &__poster {
+    width: 100%;
+    border-radius: var(--border-radius-m);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-16);
   }
 
   &__title {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
+    font-size: var(--font-size-xxl);
+    margin: 0;
   }
 
   &__tagline {
     font-style: italic;
-    color: #aaa;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 
   &__meta {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    font-size: 0.95rem;
+    gap: var(--spacing-16);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__genres {
+    display: flex;
+    gap: var(--spacing-8);
+    flex-wrap: wrap;
+  }
+
+  &__genre-tag {
+    padding: var(--spacing-4) var(--spacing-12);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-s);
+    font-size: var(--font-size-sm);
   }
 
   &__overview {
     line-height: 1.6;
-    color: #eee;
   }
 }
