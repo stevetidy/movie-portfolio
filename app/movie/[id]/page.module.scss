@@ -3,7 +3,7 @@
 .details {
   position: relative;
   min-height: calc(100vh - rem(80));
-  padding-bottom: 4rem;
+  padding-bottom: var(--spacing-64);
 
   &__backdrop-wrapper {
     position: absolute;
@@ -36,17 +36,17 @@
     z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 0 1.5rem;
+    padding: var(--spacing-48) var(--spacing-24) 0 var(--spacing-24);
   }
 
   &__card {
     display: grid;
     grid-template-columns: 280px 1fr;
-    gap: 2.5rem;
+    gap: var(--spacing-24);
     align-items: start;
 
-    padding: 2.5rem !important;
-    background-color: rgba(15, 23, 42, 0.88) !important;
+    padding: var(--spacing-24);
+    background-color: rgba(15, 23, 42, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -55,8 +55,8 @@
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
-      padding: 1.5rem !important;
-      gap: 1.5rem;
+      padding: var(--spacing-24);
+      gap: var(--spacing-20);
     }
   }
 
@@ -95,20 +95,20 @@
   &__meta {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-16);
     font-size: 0.95rem;
     color: #94a3b8;
   }
 
   &__genres {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--spacing-8);
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-8);
   }
 
   &__genre-tag {
-    padding: 0.25rem 0.75rem;
+    padding: var(--spacing-4) var(--spacing-12);
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 6px;
