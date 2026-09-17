@@ -1,5 +1,6 @@
 import Header from './components/Header/Header';
 import { WatchlistProvider } from '@/context/WatchlistContext';
+import AiAssistant from '@/app/components/AiAssistant/AiAssistant';
 import './styles/globals.scss';
 
 import type { Metadata } from 'next';
@@ -36,6 +37,7 @@ export default function RootLayout({
         <WatchlistProvider>
           <Header />
           {children}
+          <AiAssistant />
         </WatchlistProvider>
       </body>
     </html>
