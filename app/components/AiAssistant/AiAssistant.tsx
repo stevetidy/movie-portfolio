@@ -57,8 +57,8 @@ export default function AiAssistant() {
                 key={m.id} 
                 className={`${styles.message} ${styles[`message--${m.role}`]}`}
               >
-                <strong>{m.role === 'user' ? 'You' : 'AI'}:</strong>{' '}
-                <div className={styles.messageBody}>
+                <p className={styles['message-header']}>{m.role === 'user' ? 'You' : 'AI Concierge'}:{' '}</p>
+                <div className={styles['message-body']}>
                   {m.parts?.map((part, index) => {
                     if (part.type === 'text') {
                       return (

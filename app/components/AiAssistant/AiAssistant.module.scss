@@ -144,3 +144,18 @@
     cursor: not-allowed;
   }
 }
+
+.message-header {
+  font-weight: bold;
+  margin-bottom: var(--spacing-4);
+}
+
+.message-body {
+  display: grid;
+  gap: var(--spacing-8);
+
+  ul {
+    gap: var(--spacing-8);
+    display: grid;
+  }
+}
